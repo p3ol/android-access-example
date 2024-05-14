@@ -19,5 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ViewBasedExample"
-include(":app")
+rootProject.name = "AccessAndroidExample"
+include(":viewbasedexample")
+include(":composeexample")
