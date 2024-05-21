@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ComposeExample</string>
+
+    <!--  Home Screen  -->
+    <string name="home_title">Home</string>
+
+    <!--  Profile Screen  -->
+    <string name="profile_title">Profile</string>
 </resources>
