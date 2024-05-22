@@ -37,11 +37,10 @@ class HomeViewModel(
         )
 
     init {
-        refreshPosts()
+        refreshArticles()
     }
 
-    fun refreshPosts() {
-        // Ui state is refreshing
+    fun refreshArticles() {
         viewModelState.update { it.copy(isLoading = true) }
 
         viewModelScope.launch {
