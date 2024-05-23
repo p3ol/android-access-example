@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.composeexample.R
 import com.example.composeexample.model.Article
+import com.example.composeexample.ui.components.PremiumTitle
 
 @Composable
 fun DateAndReadTime(
@@ -50,11 +51,13 @@ fun ArticleImage(article: Article, modifier: Modifier = Modifier) {
 
 @Composable
 fun ArticleTitle(article: Article) {
-    Text(
-        text = article.title,
+    PremiumTitle(
+        article = article,
         style = MaterialTheme.typography.titleMedium,
         maxLines = 3,
         overflow = TextOverflow.Ellipsis,
+        width = 16,
+        height = 16,
     )
 }
 

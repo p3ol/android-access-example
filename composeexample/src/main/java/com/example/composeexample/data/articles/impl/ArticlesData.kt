@@ -88,7 +88,8 @@ val politicsArticle = Article(
     ),
     paragraphs = paragraphsArticle,
     imageId = R.drawable.politics,
-    imageThumbId = R.drawable.politics_thumb
+    imageThumbId = R.drawable.politics_thumb,
+    isPremium = true
 )
 
 val socialArticle = Article(
@@ -101,7 +102,8 @@ val socialArticle = Article(
     ),
     paragraphs = paragraphsArticle,
     imageId = R.drawable.social,
-    imageThumbId = R.drawable.social_thumb
+    imageThumbId = R.drawable.social_thumb,
+    isPremium = true
 )
 
 val sportsArticle = Article(
@@ -114,7 +116,8 @@ val sportsArticle = Article(
     ),
     paragraphs = paragraphsArticle,
     imageId = R.drawable.sports,
-    imageThumbId = R.drawable.sports_thumb
+    imageThumbId = R.drawable.sports_thumb,
+    isPremium = true
 )
 
 val opinionArticle = Article(
@@ -140,7 +143,8 @@ val techArticle = Article(
     ),
     paragraphs = paragraphsArticle,
     imageId = R.drawable.tech,
-    imageThumbId = R.drawable.tech_thumb
+    imageThumbId = R.drawable.tech_thumb,
+    isPremium = true
 )
 
 val cultureArticle = Article(
@@ -166,7 +170,8 @@ val healthArticle = Article(
     ),
     paragraphs = paragraphsArticle,
     imageId = R.drawable.health,
-    imageThumbId = R.drawable.health_thumb
+    imageThumbId = R.drawable.health_thumb,
+    isPremium = true
 )
 
 val financeArticle = Article(
@@ -192,7 +197,8 @@ val magazineArticle = Article(
     ),
     paragraphs = paragraphsArticle,
     imageId = R.drawable.magazine,
-    imageThumbId = R.drawable.magazine_thumb
+    imageThumbId = R.drawable.magazine_thumb,
+    isPremium = true
 )
 
 val articles: ArticlesFeed =

@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.composeexample.R
 import com.example.composeexample.model.Article
+import com.example.composeexample.ui.components.PremiumTitle
 
 @Composable
 fun ArticleCardPopular(
@@ -43,8 +44,8 @@ fun ArticleCardPopular(
             )
 
             Column(modifier = Modifier.padding(16.dp)) {
-                Text(
-                    text = article.title,
+                PremiumTitle(
+                    article = article,
                     style = MaterialTheme.typography.headlineSmall,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis

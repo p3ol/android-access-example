@@ -25,6 +25,7 @@ import com.example.composeexample.data.AppContainer
 import com.example.composeexample.ui.navigation.AppDestinations
 import com.example.composeexample.ui.navigation.AppNavGraph
 import com.example.composeexample.ui.navigation.AppNavigationActions
+import com.poool.access.compose.AccessCompositionLocal
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,11 +70,15 @@ fun ComposeExampleApp(
                 }
             }
         }
-    ) { paddingValues ->  
-        AppNavGraph(
-            modifier = Modifier.padding(paddingValues),
-            navController = navController,
-            appContainer = appContainer
-        )
+    ) { paddingValues ->
+        AccessCompositionLocal(
+            appId = "GP24fGU7rjdGCZ5bRvh9KahttH5fzxrPGKiSu1cabyTrwA8c3aYgI07oG6dQkTs5"
+        ) {
+            AppNavGraph(
+                modifier = Modifier.padding(paddingValues),
+                navController = navController,
+                appContainer = appContainer
+            )
+        }
     }
 }
