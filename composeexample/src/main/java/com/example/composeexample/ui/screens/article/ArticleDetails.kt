@@ -1,7 +1,6 @@
 package com.example.composeexample.ui.screens.article
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.gestures.draggable
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
@@ -21,10 +20,8 @@ fun ArticleDetails(
         sheetState = bottomSheetState,
         onDismissRequest = { onCloseArticle() },
     ) {
-        Row(Modifier.fillMaxSize()) {
-            ArticleContent(
-                article = article,
-            )
-        }
+        ArticleContent(
+            article = article,
+        )
     }
 }

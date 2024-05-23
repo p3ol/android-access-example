@@ -3,7 +3,6 @@ package com.example.composeexample.ui.screens.article
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,15 +11,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -28,10 +24,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.FirstBaseline
 import androidx.compose.ui.platform.LocalDensity
@@ -57,6 +54,10 @@ import com.example.composeexample.model.MarkupType
 import com.example.composeexample.model.Metadata
 import com.example.composeexample.model.Paragraph
 import com.example.composeexample.model.ParagraphType
+import com.poool.access.compose.LocalAccess
+import com.poool.access.compose.Paywall
+import com.poool.access.compose.PaywallMode
+import com.poool.access.onRelease
 
 private val defaultSpacerSize = 16.dp
 
@@ -67,12 +68,61 @@ fun ArticleContent(
     contentPadding: PaddingValues = PaddingValues(0.dp),
     state: LazyListState = rememberLazyListState()
 ) {
+    val (access) = LocalAccess.current
+    val (isPaywallReleased, setIsPaywallReleased) = remember { mutableStateOf(false) }
+
+    access?.onRelease { setIsPaywallReleased(true) }
+
     LazyColumn(
         contentPadding = contentPadding,
         modifier = modifier.padding(horizontal = defaultSpacerSize),
         state = state,
     ) {
-        articleContentItems(article)
+
+        if (!article.isPremium) {
+            articleContentItems(article)
+        } else {
+            when (article.paywallType) {
+                PaywallMode.CUSTOM -> {
+                    articleCustomPremiumContentItems(article, isPaywallReleased)
+                }
+                PaywallMode.HIDE -> {
+                    articleContentItems(article)
+                }
+                PaywallMode.BOTTOM_SHEET -> {
+                    articleContentItems(article)
+                }
+            }
+        }
+    }
+}
+
+fun LazyListScope.articleCustomPremiumContentItems(article: Article, isPaywallReleased: Boolean) {
+    val readableParagraphs = article.paragraphs.subList(0, 2)
+    val hiddenParagraphs = article.paragraphs.subList(2, article.paragraphs.size)
+
+    item {
+        ArticleHeaderImage(article)
+        Spacer(Modifier.height(defaultSpacerSize))
+        Text(article.title, style = MaterialTheme.typography.headlineLarge)
+        Spacer(Modifier.height(8.dp))
+    }
+    item { ArticleMetadata(article.metadata, Modifier.padding(bottom = 24.dp)) }
+    items(readableParagraphs) { Paragraph(paragraph = it) }
+
+    if (isPaywallReleased) {
+        items(hiddenParagraphs) { Paragraph(paragraph = it) }
+    } else {
+        item {
+            Paywall(
+                mode = PaywallMode.CUSTOM,
+                config = mapOf(
+                    "debug" to true,
+                    "cookies_enabled" to true,
+                ),
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+        }
     }
 }
 

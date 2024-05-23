@@ -1,6 +1,7 @@
 package com.example.composeexample.model
 
 import androidx.annotation.DrawableRes
+import com.poool.access.compose.PaywallMode
 
 data class Article(
     val id: String,
@@ -10,6 +11,7 @@ data class Article(
     val metadata: Metadata,
     val paragraphs: List<Paragraph> = emptyList(),
     val isPremium: Boolean = false,
+    val paywallType: PaywallMode = PaywallMode.HIDE,
     @DrawableRes val imageId: Int,
     @DrawableRes val imageThumbId: Int
 )

@@ -7,6 +7,7 @@ import com.example.composeexample.model.ArticlesFeed
 import com.example.composeexample.model.Metadata
 import com.example.composeexample.model.Paragraph
 import com.example.composeexample.model.ParagraphType
+import com.poool.access.compose.PaywallMode
 
 val paragraphsArticle = listOf(
     Paragraph(
@@ -89,7 +90,8 @@ val politicsArticle = Article(
     paragraphs = paragraphsArticle,
     imageId = R.drawable.politics,
     imageThumbId = R.drawable.politics_thumb,
-    isPremium = true
+    isPremium = true,
+    paywallType = PaywallMode.BOTTOM_SHEET
 )
 
 val socialArticle = Article(
@@ -103,7 +105,8 @@ val socialArticle = Article(
     paragraphs = paragraphsArticle,
     imageId = R.drawable.social,
     imageThumbId = R.drawable.social_thumb,
-    isPremium = true
+    isPremium = true,
+    paywallType = PaywallMode.BOTTOM_SHEET
 )
 
 val sportsArticle = Article(
@@ -117,7 +120,8 @@ val sportsArticle = Article(
     paragraphs = paragraphsArticle,
     imageId = R.drawable.sports,
     imageThumbId = R.drawable.sports_thumb,
-    isPremium = true
+    isPremium = true,
+    paywallType = PaywallMode.CUSTOM
 )
 
 val opinionArticle = Article(
@@ -144,7 +148,8 @@ val techArticle = Article(
     paragraphs = paragraphsArticle,
     imageId = R.drawable.tech,
     imageThumbId = R.drawable.tech_thumb,
-    isPremium = true
+    isPremium = true,
+    paywallType = PaywallMode.BOTTOM_SHEET
 )
 
 val cultureArticle = Article(
@@ -171,7 +176,8 @@ val healthArticle = Article(
     paragraphs = paragraphsArticle,
     imageId = R.drawable.health,
     imageThumbId = R.drawable.health_thumb,
-    isPremium = true
+    isPremium = true,
+    paywallType = PaywallMode.BOTTOM_SHEET
 )
 
 val financeArticle = Article(
@@ -198,7 +204,8 @@ val magazineArticle = Article(
     paragraphs = paragraphsArticle,
     imageId = R.drawable.magazine,
     imageThumbId = R.drawable.magazine_thumb,
-    isPremium = true
+    isPremium = true,
+    paywallType = PaywallMode.BOTTOM_SHEET
 )
 
 val articles: ArticlesFeed =
