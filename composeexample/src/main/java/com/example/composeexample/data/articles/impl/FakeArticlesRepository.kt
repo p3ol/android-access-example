@@ -13,15 +13,15 @@ import kotlinx.coroutines.withContext
 
 class FakeArticlesRepository : ArticlesRepository {
 
-    private val postsFeed = MutableStateFlow<ArticlesFeed?>(null)
+    private val articlesFeed = MutableStateFlow<ArticlesFeed?>(null)
 
-    override suspend fun getArticle(postId: String?): Result<Article> {
+    override suspend fun getArticle(articleId: String?): Result<Article> {
         return withContext(Dispatchers.IO) {
-            val post = posts.allArticles.find { it.id == postId }
-            if (post == null) {
+            val article = articles.allArticles.find { it.id == articleId }
+            if (article == null) {
                 Result.Error(IllegalArgumentException("Article not found"))
             } else {
-                Result.Success(post)
+                Result.Success(article)
             }
         }
     }
@@ -32,13 +32,13 @@ class FakeArticlesRepository : ArticlesRepository {
             if (shouldRandomlyFail()) {
                 Result.Error(IllegalStateException())
             } else {
-                postsFeed.update { posts }
-                Result.Success(posts)
+                articlesFeed.update { articles }
+                Result.Success(articles)
             }
         }
     }
 
-    override fun observeArticlesFeed(): Flow<ArticlesFeed?> = postsFeed
+    override fun observeArticlesFeed(): Flow<ArticlesFeed?> = articlesFeed
 
     private var requestCount = 0
 

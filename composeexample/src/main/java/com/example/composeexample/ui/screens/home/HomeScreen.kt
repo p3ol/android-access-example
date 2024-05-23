@@ -51,13 +51,13 @@ fun HomeScreen(
 
                 ArticleList(
                     state = homeListLazyListState,
-                    articlesFeed = uiState_.postsFeed,
+                    articlesFeed = uiState_.articlesFeed,
                     onArticleTapped = { onSelectArticle(it) }
                 )
 
                 if (uiState_.isArticleOpen) {
                     ArticleDetails(
-                        article = uiState_.selectedPost,
+                        article = uiState_.selectedArticle,
                         bottomSheetState = articleBottomSheetState,
                         onCloseArticle = { homeViewModel.interactedWithFeed() }
                     )

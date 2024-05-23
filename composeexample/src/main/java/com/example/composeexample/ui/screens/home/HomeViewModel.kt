@@ -17,14 +17,14 @@ import java.util.UUID
 
 class HomeViewModel(
     private val articlesRepository: ArticlesRepository,
-    preSelectedPostId: String?
+    preSelectedArticleId: String?
 ) : ViewModel() {
 
     private val viewModelState = MutableStateFlow(
         HomeViewModelState(
             isLoading = true,
-            selectedPostId = preSelectedPostId,
-            isArticleOpen = preSelectedPostId != null
+            selectedArticleId = preSelectedArticleId,
+            isArticleOpen = preSelectedArticleId != null
         )
     )
 
@@ -47,7 +47,7 @@ class HomeViewModel(
             val result = articlesRepository.getArticlesFeed()
             viewModelState.update {
                 when (result) {
-                    is Result.Success -> it.copy(postsFeed = result.data, isLoading = false)
+                    is Result.Success -> it.copy(articlesFeed = result.data, isLoading = false)
                     is Result.Error -> {
                         val errorMessages = it.errorMessages + ErrorMessage(
                             id = UUID.randomUUID().mostSignificantBits,
@@ -60,8 +60,8 @@ class HomeViewModel(
         }
     }
 
-    fun selectArticle(postId: String) {
-        interactedWithArticleDetails(postId)
+    fun selectArticle(articleId: String) {
+        interactedWithArticleDetails(articleId)
     }
 
     fun errorShown(errorId: Long) {
@@ -77,10 +77,10 @@ class HomeViewModel(
         }
     }
 
-    fun interactedWithArticleDetails(postId: String) {
+    fun interactedWithArticleDetails(articleId: String) {
         viewModelState.update {
             it.copy(
-                selectedPostId = postId,
+                selectedArticleId = articleId,
                 isArticleOpen = true
             )
         }
@@ -95,11 +95,11 @@ class HomeViewModel(
     companion object {
         fun provideFactory(
             articlesRepository: ArticlesRepository,
-            preSelectedPostId: String? = null
+            preSelectedArticleId: String? = null
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return HomeViewModel(articlesRepository, preSelectedPostId) as T
+                return HomeViewModel(articlesRepository, preSelectedArticleId) as T
             }
         }
     }

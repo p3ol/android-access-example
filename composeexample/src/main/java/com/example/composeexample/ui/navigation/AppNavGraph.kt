@@ -12,7 +12,7 @@ import com.example.composeexample.ui.screens.home.HomeScreen
 import com.example.composeexample.ui.screens.home.HomeViewModel
 import com.example.composeexample.ui.screens.profile.ProfileScreen
 
-const val POST_ID = "postId"
+const val ARTICLE_ID = "articleId"
 
 @Composable
 fun AppNavGraph(
@@ -30,7 +30,7 @@ fun AppNavGraph(
             val homeViewModel: HomeViewModel = viewModel(
                 factory = HomeViewModel.provideFactory(
                     articlesRepository = appContainer.articlesRepository,
-                    preSelectedPostId = navBackStackEntry.arguments?.getString(POST_ID)
+                    preSelectedArticleId = navBackStackEntry.arguments?.getString(ARTICLE_ID)
                 )
             )
 

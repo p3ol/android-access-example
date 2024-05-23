@@ -7,10 +7,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface ArticlesRepository {
 
-    suspend fun getArticle(postId: String?): Result<Article>
+    suspend fun getArticle(articleId: String?): Result<Article>
 
     suspend fun getArticlesFeed(): Result<ArticlesFeed>
 
     fun observeArticlesFeed(): Flow<ArticlesFeed?>
 }
-

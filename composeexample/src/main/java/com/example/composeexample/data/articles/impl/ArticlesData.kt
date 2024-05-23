@@ -15,7 +15,7 @@ val publication = Publication(
     "Android Developers",
     "https://cdn-images-1.medium.com/max/258/1*u7oZc2_5mrkcFaxkXEyfYA@2x.png"
 )
-val paragraphsPost1 = listOf(
+val paragraphsArticle1 = listOf(
     Paragraph(
         ParagraphType.Text,
         "Working to make our Android application more modular, I ended up with a sample that included a set of on-demand features grouped inside a folder:"
@@ -154,7 +154,7 @@ val paragraphsPost1 = listOf(
     )
 )
 
-val paragraphsPost2 = listOf(
+val paragraphsArticle2 = listOf(
     Paragraph(
         ParagraphType.Text,
         "Dagger is a popular Dependency Injection framework commonly used in Android. It provides fully static and compile-time dependencies addressing many of the development and performance issues that have reflection-based solutions.",
@@ -430,7 +430,7 @@ val paragraphsPost2 = listOf(
     )
 )
 
-val paragraphsPost3 = listOf(
+val paragraphsArticle3 = listOf(
     Paragraph(
         ParagraphType.Text,
         "Learn how to get started converting Java Programming Language code to Kotlin, making it more idiomatic and avoid common pitfalls, by following our new Refactoring to Kotlin codelab, available in English \uD83C\uDDEC\uD83C\uDDE7, Chinese \uD83C\uDDE8\uD83C\uDDF3 and Brazilian Portuguese \uD83C\uDDE7\uD83C\uDDF7.",
@@ -515,7 +515,7 @@ val paragraphsPost3 = listOf(
     )
 )
 
-val paragraphsPost4 = listOf(
+val paragraphsArticle4 = listOf(
     Paragraph(
         ParagraphType.Text,
         "TL;DR: Expose resource IDs from ViewModels to avoid showing obsolete data."
@@ -607,7 +607,7 @@ val paragraphsPost4 = listOf(
     )
 )
 
-val paragraphsPost5 = listOf(
+val paragraphsArticle5 = listOf(
     Paragraph(
         ParagraphType.Text,
         "Working with collections is a common task and the Kotlin Standard Library offers many great utility functions. It also offers two ways of working with collections based on how they’re evaluated: eagerly — with Collections, and lazily — with Sequences. Continue reading to find out what’s the difference between the two, which one you should use and when, and what the performance implications of each are.",
@@ -914,7 +914,7 @@ val article1 = Article(
         date = "August 02",
         readTimeMinutes = 1
     ),
-    paragraphs = paragraphsPost1,
+    paragraphs = paragraphsArticle1,
     imageId = R.drawable.post_1,
     imageThumbId = R.drawable.post_1_thumb
 )
@@ -929,7 +929,7 @@ val article2 = Article(
         date = "July 30",
         readTimeMinutes = 3
     ),
-    paragraphs = paragraphsPost2,
+    paragraphs = paragraphsArticle2,
     imageId = R.drawable.post_1,
     imageThumbId = R.drawable.post_1_thumb
 )
@@ -944,7 +944,7 @@ val article3 = Article(
         date = "July 09",
         readTimeMinutes = 1
     ),
-    paragraphs = paragraphsPost3,
+    paragraphs = paragraphsArticle3,
     imageId = R.drawable.post_1,
     imageThumbId = R.drawable.post_1_thumb
 )
@@ -959,7 +959,7 @@ val article4 = Article(
         date = "April 02",
         readTimeMinutes = 1
     ),
-    paragraphs = paragraphsPost4,
+    paragraphs = paragraphsArticle4,
     imageId = R.drawable.post_1,
     imageThumbId = R.drawable.post_1_thumb
 )
@@ -974,12 +974,12 @@ val article5 = Article(
         date = "July 24",
         readTimeMinutes = 4
     ),
-    paragraphs = paragraphsPost5,
+    paragraphs = paragraphsArticle5,
     imageId = R.drawable.post_1,
     imageThumbId = R.drawable.post_1_thumb
 )
 
-val posts: ArticlesFeed =
+val articles: ArticlesFeed =
     ArticlesFeed(
         highlightedArticle = article4,
         recommendedArticles = listOf(article1, article2, article3),

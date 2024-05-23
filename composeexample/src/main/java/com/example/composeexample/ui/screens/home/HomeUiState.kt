@@ -15,8 +15,8 @@ sealed interface HomeUiState {
     ) : HomeUiState
 
     data class HasArticles(
-        val postsFeed: ArticlesFeed,
-        val selectedPost: Article,
+        val articlesFeed: ArticlesFeed,
+        val selectedArticle: Article,
         val isArticleOpen: Boolean,
         val favorites: Set<String>,
         override val isLoading: Boolean,
@@ -25,8 +25,8 @@ sealed interface HomeUiState {
 }
 
 internal data class HomeViewModelState(
-    val postsFeed: ArticlesFeed? = null,
-    val selectedPostId: String? = null,
+    val articlesFeed: ArticlesFeed? = null,
+    val selectedArticleId: String? = null,
     val isArticleOpen: Boolean = false,
     val favorites: Set<String> = emptySet(),
     val isLoading: Boolean = false,
@@ -34,17 +34,17 @@ internal data class HomeViewModelState(
     val searchInput: String = "",
 ) {
     fun toUiState(): HomeUiState =
-        if (postsFeed == null) {
+        if (articlesFeed == null) {
             HomeUiState.NoArticles(
                 isLoading = isLoading,
                 errorMessages = errorMessages,
             )
         } else {
             HomeUiState.HasArticles(
-                postsFeed = postsFeed,
-                selectedPost = postsFeed.allArticles.find {
-                    it.id == selectedPostId
-                } ?: postsFeed.highlightedArticle,
+                articlesFeed = articlesFeed,
+                selectedArticle = articlesFeed.allArticles.find {
+                    it.id == selectedArticleId
+                } ?: articlesFeed.highlightedArticle,
                 isArticleOpen = isArticleOpen,
                 favorites = favorites,
                 isLoading = isLoading,
