@@ -6,7 +6,6 @@ data class Article(
     val id: String,
     val title: String,
     val subtitle: String? = null,
-    val url: String,
     val publication: Publication? = null,
     val metadata: Metadata,
     val paragraphs: List<Paragraph> = emptyList(),
