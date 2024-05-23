@@ -15,14 +15,8 @@ data class Article(
 )
 
 data class Metadata(
-    val author: ArticleAuthor,
     val date: String,
     val readTimeMinutes: Int
-)
-
-data class ArticleAuthor(
-    val name: String,
-    val url: String? = null
 )
 
 data class Publication(

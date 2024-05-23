@@ -49,13 +49,7 @@ fun ArticleCardPopular(
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
-                Spacer(modifier = Modifier.weight(1f))
-                Text(
-                    text = article.metadata.author.name,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
                     text = stringResource(

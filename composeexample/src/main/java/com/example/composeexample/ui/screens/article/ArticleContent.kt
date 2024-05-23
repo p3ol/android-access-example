@@ -82,10 +82,6 @@ fun LazyListScope.articleContentItems(article: Article) {
         Spacer(Modifier.height(defaultSpacerSize))
         Text(article.title, style = MaterialTheme.typography.headlineLarge)
         Spacer(Modifier.height(8.dp))
-        if (article.subtitle != null) {
-            Text(article.subtitle, style = MaterialTheme.typography.bodyMedium)
-            Spacer(Modifier.height(defaultSpacerSize))
-        }
     }
     item { ArticleMetadata(article.metadata, Modifier.padding(bottom = 24.dp)) }
     items(article.paragraphs) { Paragraph(paragraph = it) }
@@ -113,32 +109,16 @@ private fun ArticleMetadata(
     Row(
         modifier = modifier.semantics(mergeDescendants = true) {}
     ) {
-        Image(
-            imageVector = Icons.Filled.AccountCircle,
-            contentDescription = null,
-            modifier = Modifier.size(40.dp),
-            colorFilter = ColorFilter.tint(LocalContentColor.current),
-            contentScale = ContentScale.Fit
+        Text(
+            text = stringResource(
+                id = R.string.home_article_min_read,
+                formatArgs = arrayOf(
+                    metadata.date,
+                    metadata.readTimeMinutes
+                )
+            ),
+            style = MaterialTheme.typography.bodySmall
         )
-        Spacer(Modifier.width(8.dp))
-        Column {
-            Text(
-                text = metadata.author.name,
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.padding(top = 4.dp)
-            )
-
-            Text(
-                text = stringResource(
-                    id = R.string.home_article_min_read,
-                    formatArgs = arrayOf(
-                        metadata.date,
-                        metadata.readTimeMinutes
-                    )
-                ),
-                style = MaterialTheme.typography.bodySmall
-            )
-        }
     }
 }
 

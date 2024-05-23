@@ -45,11 +45,6 @@ fun ArticleCardTop(article: Article, modifier: Modifier = Modifier) {
             modifier = Modifier.padding(bottom = 8.dp)
         )
         Text(
-            text = article.metadata.author.name,
-            style = typography.labelLarge,
-            modifier = Modifier.padding(bottom = 4.dp)
-        )
-        Text(
             text = stringResource(
                 id = R.string.home_article_min_read,
                 formatArgs = arrayOf(

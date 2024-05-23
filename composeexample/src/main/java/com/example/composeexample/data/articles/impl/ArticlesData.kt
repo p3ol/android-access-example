@@ -3,7 +3,6 @@ package com.example.composeexample.data.articles.impl
 
 import com.example.composeexample.R
 import com.example.composeexample.model.Article
-import com.example.composeexample.model.ArticleAuthor
 import com.example.composeexample.model.ArticlesFeed
 import com.example.composeexample.model.Markup
 import com.example.composeexample.model.MarkupType
@@ -11,15 +10,6 @@ import com.example.composeexample.model.Metadata
 import com.example.composeexample.model.Paragraph
 import com.example.composeexample.model.ParagraphType
 import com.example.composeexample.model.Publication
-
-val pietro = ArticleAuthor("Pietro Maggi", "https://medium.com/@pmaggi")
-val manuel = ArticleAuthor("Manuel Vivo", "https://medium.com/@manuelvicnt")
-val florina = ArticleAuthor(
-    "Florina Muntenescu",
-    "https://medium.com/@florina.muntenescu"
-)
-val jose =
-    ArticleAuthor("Jose Alcérreca", "https://medium.com/@JoseAlcerreca")
 
 val publication = Publication(
     "Android Developers",
@@ -921,7 +911,6 @@ val article1 = Article(
     url = "https://medium.com/androiddevelopers/gradle-path-configuration-dc523f0ed25c",
     publication = publication,
     metadata = Metadata(
-        author = pietro,
         date = "August 02",
         readTimeMinutes = 1
     ),
@@ -937,7 +926,6 @@ val article2 = Article(
     url = "https://medium.com/androiddevelopers/dagger-in-kotlin-gotchas-and-optimizations-7446d8dfd7dc",
     publication = publication,
     metadata = Metadata(
-        author = manuel,
         date = "July 30",
         readTimeMinutes = 3
     ),
@@ -953,7 +941,6 @@ val article3 = Article(
     url = "https://medium.com/androiddevelopers/from-java-programming-language-to-kotlin-the-idiomatic-way-ac552dcc1741",
     publication = publication,
     metadata = Metadata(
-        author = florina,
         date = "July 09",
         readTimeMinutes = 1
     ),
@@ -969,7 +956,6 @@ val article4 = Article(
     url = "https://medium.com/androiddevelopers/locale-changes-and-the-androidviewmodel-antipattern-84eb677660d9",
     publication = publication,
     metadata = Metadata(
-        author = jose,
         date = "April 02",
         readTimeMinutes = 1
     ),
@@ -985,7 +971,6 @@ val article5 = Article(
     url = "https://medium.com/androiddevelopers/collections-and-sequences-in-kotlin-55db18283aca",
     publication = publication,
     metadata = Metadata(
-        author = florina,
         date = "July 24",
         readTimeMinutes = 4
     ),

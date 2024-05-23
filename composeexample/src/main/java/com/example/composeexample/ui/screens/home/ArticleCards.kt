@@ -19,7 +19,7 @@ import com.example.composeexample.R
 import com.example.composeexample.model.Article
 
 @Composable
-fun AuthorAndReadTime(
+fun DateAndReadTime(
     article: Article,
     modifier: Modifier = Modifier
 ) {
@@ -28,7 +28,7 @@ fun AuthorAndReadTime(
             text = stringResource(
                 id = R.string.home_article_min_read,
                 formatArgs = arrayOf(
-                    article.metadata.author.name,
+                    article.metadata.date,
                     article.metadata.readTimeMinutes
                 )
             ),
@@ -74,7 +74,7 @@ fun ArticleCardSimple(
                 .padding(vertical = 10.dp)
         ) {
             ArticleTitle(article)
-            AuthorAndReadTime(article)
+            DateAndReadTime(article)
         }
     }
 }
