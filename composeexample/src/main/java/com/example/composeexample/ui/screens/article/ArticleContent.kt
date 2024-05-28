@@ -90,11 +90,31 @@ fun ArticleContent(
                     articleContentItems(article)
                 }
                 PaywallMode.BOTTOM_SHEET -> {
-                    articleContentItems(article)
+                    articleBottomSheetPremiumContentItems(article)
                 }
             }
         }
     }
+}
+
+fun LazyListScope.articleBottomSheetPremiumContentItems(article: Article) {
+    item {
+        ArticleHeaderImage(article)
+        Spacer(Modifier.height(defaultSpacerSize))
+        Text(article.title, style = MaterialTheme.typography.headlineLarge)
+        Spacer(Modifier.height(8.dp))
+    }
+    item { ArticleMetadata(article.metadata, Modifier.padding(bottom = 24.dp)) }
+    item {
+        Paywall(
+            mode = PaywallMode.BOTTOM_SHEET,
+            config = mapOf(
+                "debug" to true,
+                "cookies_enabled" to true,
+            ),
+        )
+    }
+    items(article.paragraphs) { Paragraph(paragraph = it) }
 }
 
 fun LazyListScope.articleCustomPremiumContentItems(article: Article, isPaywallReleased: Boolean) {
