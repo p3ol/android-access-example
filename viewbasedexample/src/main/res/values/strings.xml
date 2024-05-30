@@ -2,6 +2,21 @@
     <string name="app_name">ViewBasedExample</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="media_title">Le Mousteyton Post</string>
+    <string name="load_error">Error loading data</string>
+
+    <string name="image_top_section_article">Image Top Section Article</string>
+    <string name="popular_section_title">Popular on Le Mousteyton Post</string>
+    <string name="image_of_article">Image of Article</string>
+
+    <!--  Home Screen  -->
     <string name="home_title">Home</string>
+    <string name="home_tap_to_load_content">Tap to load content</string>
+    <string name="home_article_min_read">%1$s - %2$d min read</string>
+    <string name="home_top_section_title">Top stories for you</string>
+    <string name="home_popular_section_title">Popular on Le Mousteyton Post</string>
+
+    <!--  Profile Screen  -->
     <string name="profile_title">Profile</string>
 </resources>
