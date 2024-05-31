@@ -15,7 +15,7 @@
       </SelectionState>
       <SelectionState runConfigName="viewbasedexample">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-05-28T12:29:53.065102Z">
+        <DropdownSelection timestamp="2024-05-31T07:45:05.926206Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=/Users/tyigger/.android/avd/Pixel_7_API_33.avd" />

@@ -17,12 +17,14 @@
         android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/home"
+            android:id="@+id/home_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.home.HomeFragment">
+            tools:context=".ui.home.HomeFragment"
+            android:fillViewport="true">
 
             <LinearLayout
+                android:id="@+id/main_linear_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -38,6 +40,7 @@
                     android:textStyle="bold" />
 
                 <LinearLayout
+                    android:id="@+id/top_section_linear_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
