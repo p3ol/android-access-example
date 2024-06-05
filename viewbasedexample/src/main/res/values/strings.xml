@@ -19,4 +19,5 @@
 
     <!--  Profile Screen  -->
     <string name="profile_title">Profile</string>
+    <string name="horizontal_scroll_desc">horizontal scroll</string>
 </resources>
