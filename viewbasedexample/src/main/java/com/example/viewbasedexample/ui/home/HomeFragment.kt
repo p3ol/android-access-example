@@ -1,22 +1,21 @@
 package com.example.viewbasedexample.ui.home
 
-import android.content.Context
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.isNotEmpty
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.setMargins
-import androidx.core.view.setPadding
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -24,19 +23,17 @@ import com.example.viewbasedexample.R
 import com.example.viewbasedexample.databinding.FragmentHomeBinding
 import com.example.viewbasedexample.model.Article
 import com.example.viewbasedexample.model.ArticlesFeed
-import com.example.viewbasedexample.model.Metadata
+import com.example.viewbasedexample.ui.article.ArticleBottomSheetFragment
 import com.example.viewbasedexample.ui.home.adapter.HomeRecyclerViewAdapter
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.card.MaterialCardView
-import com.google.android.material.progressindicator.CircularProgressIndicator
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.observeOn
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels()
 
-    private var _binding: FragmentHomeBinding? = null
+    private lateinit var _binding: FragmentHomeBinding
 
     private lateinit var loader: LinearLayout
 
@@ -60,9 +57,13 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val fragmentBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        val view = fragmentBinding.root
+
         _binding = fragmentBinding
 
-        loader = LayoutInflater.from(requireContext()).inflate(R.layout.main_loader, null) as LinearLayout
+        loader = LayoutInflater
+            .from(requireContext())
+            .inflate(R.layout.main_loader, null) as LinearLayout
 
         adapter = HomeRecyclerViewAdapter(emptyList())
 
@@ -125,7 +126,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun openArticle(article: Article) {
-        println("Opening article: ${article.title}")
+        val bottomSheetFragment = ArticleBottomSheetFragment.newInstance(article)
+        bottomSheetFragment.show(
+            requireActivity().supportFragmentManager,
+            bottomSheetFragment.tag
+        )
     }
 
     private fun hydrateArticles(articlesFeed: ArticlesFeed) {
