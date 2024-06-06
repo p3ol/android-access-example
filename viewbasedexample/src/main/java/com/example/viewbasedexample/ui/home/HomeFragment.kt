@@ -7,15 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.setMargins
 import androidx.core.widget.NestedScrollView
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -25,8 +23,8 @@ import com.example.viewbasedexample.model.Article
 import com.example.viewbasedexample.model.ArticlesFeed
 import com.example.viewbasedexample.ui.article.ArticleBottomSheetFragment
 import com.example.viewbasedexample.ui.home.adapter.HomeRecyclerViewAdapter
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.card.MaterialCardView
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -88,7 +86,7 @@ class HomeFragment : Fragment() {
         popularLinearLayout = fragmentBinding.popularHorizontalScrollLinearLayout
 
         lifecycleScope.launch {
-            viewModel.uiState.collect { state ->
+            viewModel.uiState.flowWithLifecycle(lifecycle).collect { state ->
                 when (state) {
                     is HomeUiState.HasArticles -> {
                         if (
@@ -105,11 +103,13 @@ class HomeFragment : Fragment() {
 
                         adapter = HomeRecyclerViewAdapter(state.articlesFeed.recommendedArticles)
                         homeRecyclerView.adapter = adapter
-                        adapter.setOnItemClickListener(object : HomeRecyclerViewAdapter.OnItemClickListener {
-                            override fun onItemClick(position: Int) {
-                                openArticle(state.articlesFeed.recommendedArticles[position])
+                        adapter.setOnItemClickListener(object : HomeRecyclerViewAdapter
+                            .OnItemClickListener {
+                                override fun onItemClick(position: Int) {
+                                    openArticle(state.articlesFeed.recommendedArticles[position])
+                                }
                             }
-                        })
+                        )
 
                         hydrateArticles(state.articlesFeed)
                     }
@@ -126,7 +126,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun openArticle(article: Article) {
-        val bottomSheetFragment = ArticleBottomSheetFragment.newInstance(article)
+        val bottomSheetFragment = ArticleBottomSheetFragment
+            .newInstance(article, viewModel.access)
         bottomSheetFragment.show(
             requireActivity().supportFragmentManager,
             bottomSheetFragment.tag
@@ -136,6 +137,11 @@ class HomeFragment : Fragment() {
     private fun hydrateArticles(articlesFeed: ArticlesFeed) {
         val highlightedArticle = articlesFeed.highlightedArticle
         topSectionImage.setImageResource(highlightedArticle.imageId)
+        if (highlightedArticle.isPremium) {
+            topSectionHeadline.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.baseline_lock_24, 0, 0, 0
+            )
+        }
         topSectionHeadline.text = highlightedArticle.title
         topSectionMetadata.text = getString(
             R.string.home_article_min_read,
@@ -221,6 +227,11 @@ class HomeFragment : Fragment() {
         titleView.setTextAppearance(
             com.google.android.material.R.style.TextAppearance_Material3_TitleMedium)
         titleView.text = title
+        if (article.isPremium) {
+            titleView.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.baseline_lock_24, 0, 0, 0
+            )
+        }
 
         infoLinearLayout.addView(titleView)
 

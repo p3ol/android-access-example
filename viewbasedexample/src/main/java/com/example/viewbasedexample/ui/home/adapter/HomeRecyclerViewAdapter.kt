@@ -1,6 +1,7 @@
 package com.example.viewbasedexample.ui.home.adapter
 
 import android.content.Context
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +42,13 @@ class HomeRecyclerViewAdapter(
 
         holder.image.setImageResource(item.imageThumbId)
         holder.title.text = item.title
+        if (item.isPremium) {
+            holder.title.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.baseline_lock_24, 0, 0, 0
+            )
+            holder.title.ellipsize = TextUtils.TruncateAt.END
+            holder.title.maxLines = 1
+        }
         holder.metadata.text = context.getString(
             R.string.home_article_min_read, item.metadata.date, item.metadata.readTimeMinutes)
 

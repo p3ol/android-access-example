@@ -8,19 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.children
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.viewbasedexample.R
 import com.example.viewbasedexample.databinding.FragmentBottomSheetBinding
 import com.example.viewbasedexample.model.Article
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.poool.access.Access
 
 
-class ArticleBottomSheetFragment(private val article: Article) : BottomSheetDialogFragment() {
+class ArticleBottomSheetFragment(
+    private val article: Article,
+    private val access: Access
+) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentBottomSheetBinding? = null
 
     private val binding get() = _binding!!
+
+    private lateinit var articleContainer: ConstraintLayout
 
     private lateinit var headerImg: ImageView
     private lateinit var headerTitle: TextView
@@ -37,6 +45,8 @@ class ArticleBottomSheetFragment(private val article: Article) : BottomSheetDial
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBottomSheetBinding.inflate(inflater, container, false)
+
+        articleContainer = binding.articleContainer
 
         headerImg = binding.articleImg
         headerTitle = binding.articleHeadline
@@ -66,14 +76,19 @@ class ArticleBottomSheetFragment(private val article: Article) : BottomSheetDial
                 dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
             val behavior = BottomSheetBehavior.from(bottomSheet!!)
 
-            // Expand the BottomSheetDialogFragment
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+        if (article.isPremium) {
+            access.createBottomSheetPaywall("premium", articleContainer) {
+                dismiss()
+            }
         }
     }
 
     companion object {
-        fun newInstance(article: Article): ArticleBottomSheetFragment =
-            ArticleBottomSheetFragment(article)
+        fun newInstance(article: Article, access: Access): ArticleBottomSheetFragment =
+            ArticleBottomSheetFragment(article, access)
     }
 
     override fun onDestroyView() {

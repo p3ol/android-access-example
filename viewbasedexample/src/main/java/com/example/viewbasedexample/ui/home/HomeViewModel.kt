@@ -6,6 +6,7 @@ import com.example.viewbasedexample.R
 import com.example.viewbasedexample.data.articles.impl.FakeArticlesRepository
 import com.example.viewbasedexample.data.Result
 import com.example.viewbasedexample.utils.ErrorMessage
+import com.poool.access.Access
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -35,7 +36,15 @@ class HomeViewModel : ViewModel() {
             viewModelState.value.toUiState()
         )
 
+    val access: Access =
+        Access("GP24fGU7rjdGCZ5bRvh9KahttH5fzxrPGKiSu1cabyTrwA8c3aYgI07oG6dQkTs5")
+            .config(mapOf(
+                "debug" to true,
+                "cookies_enabled" to true,
+            ))
+
     init {
+        println("HomeViewModel created")
         refreshArticles()
     }
 
