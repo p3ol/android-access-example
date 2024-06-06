@@ -127,7 +127,7 @@ class HomeFragment : Fragment() {
 
     private fun openArticle(article: Article) {
         val bottomSheetFragment = ArticleBottomSheetFragment
-            .newInstance(article, viewModel.access)
+            .newInstance(article, viewModel.accessSerializable)
         bottomSheetFragment.show(
             requireActivity().supportFragmentManager,
             bottomSheetFragment.tag

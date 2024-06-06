@@ -2,6 +2,7 @@ package com.example.viewbasedexample.model
 
 import androidx.annotation.DrawableRes
 import com.poool.access.compose.PaywallMode
+import java.io.Serializable
 
 data class Article(
     val id: String,
@@ -14,7 +15,7 @@ data class Article(
     val paywallType: PaywallMode = PaywallMode.HIDE,
     @DrawableRes val imageId: Int,
     @DrawableRes val imageThumbId: Int
-)
+) : Serializable
 
 data class Metadata(
     val date: String,

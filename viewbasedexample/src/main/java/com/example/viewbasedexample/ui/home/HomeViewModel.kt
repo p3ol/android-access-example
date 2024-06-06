@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.io.Serializable
 import java.util.UUID
 
 private const val preSelectedArticleId = "articleId"
@@ -36,12 +37,14 @@ class HomeViewModel : ViewModel() {
             viewModelState.value.toUiState()
         )
 
-    val access: Access =
-        Access("GP24fGU7rjdGCZ5bRvh9KahttH5fzxrPGKiSu1cabyTrwA8c3aYgI07oG6dQkTs5")
+    val accessSerializable: AccessSerializable = object : AccessSerializable {
+        override val access: Access =
+            Access("GP24fGU7rjdGCZ5bRvh9KahttH5fzxrPGKiSu1cabyTrwA8c3aYgI07oG6dQkTs5")
             .config(mapOf(
                 "debug" to true,
                 "cookies_enabled" to true,
             ))
+    }
 
     init {
         println("HomeViewModel created")
@@ -93,4 +96,8 @@ class HomeViewModel : ViewModel() {
             )
         }
     }
+}
+
+interface AccessSerializable : Serializable {
+    val access: Access
 }

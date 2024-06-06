@@ -1,5 +1,6 @@
 package com.example.viewbasedexample.ui.article
 
+import android.os.Build
 import android.os.Bundle
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import androidx.recyclerview.widget.RecyclerView
@@ -9,20 +10,22 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.children
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.viewbasedexample.R
 import com.example.viewbasedexample.databinding.FragmentBottomSheetBinding
 import com.example.viewbasedexample.model.Article
+import com.example.viewbasedexample.ui.home.AccessSerializable
+import com.example.viewbasedexample.ui.home.HomeViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.poool.access.Access
 
 
-class ArticleBottomSheetFragment(
-    private val article: Article,
-    private val access: Access
-) : BottomSheetDialogFragment() {
+class ArticleBottomSheetFragment: BottomSheetDialogFragment() {
+
+    private lateinit var article: Article
+    private lateinit var accessSerializable: AccessSerializable
 
     private var _binding: FragmentBottomSheetBinding? = null
 
@@ -35,6 +38,20 @@ class ArticleBottomSheetFragment(
     private lateinit var headerMetadata: TextView
 
     private lateinit var listParagraph: RecyclerView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            article = arguments?.getSerializable("article", Article::class.java) as Article
+            accessSerializable = arguments
+                ?.getSerializable("accessSerializable", AccessSerializable::class.java)
+                    as AccessSerializable
+        } else {
+            article = arguments?.getSerializable("article") as Article
+            accessSerializable = arguments?.getSerializable("accessSerializable")
+                    as AccessSerializable
+        }
+    }
 
     override fun getTheme(): Int {
         return R.style.AppBottomSheetDialogTheme
@@ -69,6 +86,7 @@ class ArticleBottomSheetFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val access = accessSerializable.access
 
         view.viewTreeObserver.addOnGlobalLayoutListener {
             val dialog = dialog as? BottomSheetDialog
@@ -87,8 +105,18 @@ class ArticleBottomSheetFragment(
     }
 
     companion object {
-        fun newInstance(article: Article, access: Access): ArticleBottomSheetFragment =
-            ArticleBottomSheetFragment(article, access)
+        fun newInstance(
+            article: Article,
+            accessSerializable: AccessSerializable
+        ): ArticleBottomSheetFragment{
+            val fragment = ArticleBottomSheetFragment()
+            val args = Bundle()
+            args.putSerializable("article", article)
+            args.putSerializable("accessSerializable", accessSerializable)
+
+            fragment.arguments = args
+            return fragment
+        }
     }
 
     override fun onDestroyView() {
