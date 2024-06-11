@@ -8,15 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.viewbasedexample.R
 import com.example.viewbasedexample.model.Paragraph
 import com.example.viewbasedexample.model.ParagraphType
+import com.poool.access.Access
+import com.poool.access.compose.PaywallMode
 
-class ArticleAdapter internal constructor(private val paragraphs: List<Paragraph>) :
+class ArticleAdapter internal constructor(
+    private val paragraphs: List<Paragraph>,
+    private val access: Access? = null,
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-        init {
-            println("ArticleAdapter init")
-        }
+    private val PREMIUM_LIMIT = 3
 
     override fun getItemViewType(position: Int): Int {
+        if (access != null && position == PREMIUM_LIMIT) {
+            return 2
+        }
+
         return when (paragraphs[position].type) {
             ParagraphType.Header -> 0
             ParagraphType.Text -> 1
@@ -30,6 +36,12 @@ class ArticleAdapter internal constructor(private val paragraphs: List<Paragraph
                 val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.fragment_bottom_sheet_header_item, parent, false)
                 HeaderViewHolder(view)
+            }
+            2 -> {
+                val view = access
+                    ?.returnPaywallView("premium", parent.context) ?: View(parent.context)
+
+                PaywallViewHolder(view)
             }
             else -> {
                 val view = LayoutInflater.from(parent.context)
@@ -47,10 +59,19 @@ class ArticleAdapter internal constructor(private val paragraphs: List<Paragraph
             is TextViewHolder -> {
                 holder.textView.text = paragraphs[position].text
             }
+            is PaywallViewHolder -> {
+                // Do nothing
+            }
         }
     }
 
-    override fun getItemCount(): Int = paragraphs.size
+    override fun getItemCount(): Int = if (access != null) (PREMIUM_LIMIT + 1) else paragraphs.size
+
+    inner class PaywallViewHolder internal constructor(view: View) :
+        RecyclerView.ViewHolder(view) {
+
+        val paywallView: View = view
+    }
 
     inner class HeaderViewHolder internal constructor(view: View) :
         RecyclerView.ViewHolder(view) {

@@ -20,6 +20,7 @@ import com.example.viewbasedexample.ui.home.HomeViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.poool.access.Access
+import com.poool.access.compose.PaywallMode
 
 
 class ArticleBottomSheetFragment: BottomSheetDialogFragment() {
@@ -71,7 +72,11 @@ class ArticleBottomSheetFragment: BottomSheetDialogFragment() {
 
         listParagraph = binding.listParagraph
         listParagraph.layoutManager = LinearLayoutManager(context)
-        listParagraph.adapter = ArticleAdapter(article.paragraphs)
+        listParagraph.adapter = ArticleAdapter(
+            article.paragraphs,
+            access = if (article.paywallType == PaywallMode.CUSTOM)
+                accessSerializable.access else null,
+        )
 
         headerImg.setImageResource(article.imageId)
         headerTitle.text = article.title
@@ -97,7 +102,7 @@ class ArticleBottomSheetFragment: BottomSheetDialogFragment() {
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
-        if (article.isPremium) {
+        if (article.isPremium && article.paywallType == PaywallMode.BOTTOM_SHEET) {
             access.createBottomSheetPaywall("premium", articleContainer) {
                 dismiss()
             }
