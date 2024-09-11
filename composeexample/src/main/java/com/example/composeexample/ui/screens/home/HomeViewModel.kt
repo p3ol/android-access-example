@@ -86,12 +86,6 @@ class HomeViewModel(
         }
     }
 
-    fun onSearchInputChanged(searchInput: String) {
-        viewModelState.update {
-            it.copy(searchInput = searchInput)
-        }
-    }
-
     companion object {
         fun provideFactory(
             articlesRepository: ArticlesRepository,
